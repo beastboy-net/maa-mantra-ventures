@@ -15,9 +15,9 @@ export default function Footer() {
               <span className="nav-logo-sub">Ventures</span>
             </div>
           </div>
-          <p>Crafting experiences that inspire, stories that connect and results that create impact.</p>
+          <p>Creating Experiences — Building Brands.<br />Mangalore's leading event management & brand promotions company.</p>
           <div className="footer-social">
-            <a href="#" aria-label="Instagram"><Icon name="instagram" /></a>
+            <a href="https://instagram.com/maamantraventures" target="_blank" rel="noreferrer" aria-label="Instagram"><Icon name="instagram" /></a>
             <a href="#" aria-label="Facebook"><Icon name="facebook" /></a>
             <a href="#" aria-label="LinkedIn"><Icon name="linkedin" /></a>
             <a href="#" aria-label="YouTube"><Icon name="youtube" /></a>
@@ -28,7 +28,7 @@ export default function Footer() {
           <h4>Quick Links</h4>
           <Link to="/">Home</Link>
           <Link to="/about">About Us</Link>
-          <Link to="/services/ad-films">Services</Link>
+          <Link to="/services/event-management">Services</Link>
           <Link to="/portfolio">Portfolio</Link>
           <Link to="/testimonials">Testimonials</Link>
           <Link to="/contact">Contact</Link>
@@ -36,20 +36,20 @@ export default function Footer() {
 
         <div className="footer-col">
           <h4>Services</h4>
-          <Link to="/services/event-management">Event Planning</Link>
-          <Link to="/services/event-management">Corporate Events</Link>
-          <Link to="/services/social-media-marketing">Paid Advertising</Link>
-          <Link to="/services/ad-films">Product Photography</Link>
-          <Link to="/services/ad-films">Promotional Videos</Link>
-          <Link to="/services/social-media-marketing">Creative Branding</Link>
+          <Link to="/services/event-management">Event Management</Link>
+          <Link to="/services/event-management">Stage & Show Management</Link>
+          <Link to="/services/ad-films">Photography & Videography</Link>
+          <Link to="/services/social-media-marketing">Advertising Solutions</Link>
+          <Link to="/services/social-media-marketing">Brand Promotions</Link>
         </div>
 
         <div className="footer-col">
           <h4>Contact Info</h4>
-          <a href="tel:+919876543210" className="footer-contact-line"><Icon name="phone" /> +91 98765 43210</a>
-          <a href="mailto:hello@maamantraventures.com" className="footer-contact-line"><Icon name="mail" /> hello@maamantraventures.com</a>
-          <span className="footer-contact-line"><Icon name="pin" /> Bangalore, India</span>
-          <a href="#" className="btn btn-primary footer-whatsapp">
+          <a href="tel:+918660737223" className="footer-contact-line"><Icon name="phone" /> 866 073 7223</a>
+          <a href="tel:+918904011860" className="footer-contact-line"><Icon name="phone" /> 890 401 1860</a>
+          <a href="mailto:maamantraventures@gmail.com" className="footer-contact-line"><Icon name="mail" /> maamantraventures@gmail.com</a>
+          <span className="footer-contact-line"><Icon name="pin" /> Shop No#8 Yenepoya Mall, Mallikatte, Kadri Road, Mangaluru 575003</span>
+          <a href="https://wa.me/918660737223" target="_blank" rel="noreferrer" className="btn btn-primary footer-whatsapp">
             Chat on WhatsApp <Icon name="whatsapp" />
           </a>
         </div>
@@ -75,11 +75,7 @@ function Icon({ name }) {
     phone: <path d="M5 4h3l1.5 4-2 1.5a12 12 0 006 6l1.5-2 4 1.5v3a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z" stroke="currentColor" strokeWidth="1.4" fill="none" />,
     mail: <path d="M3 6h18v12H3zM3 6l9 7 9-7" stroke="currentColor" strokeWidth="1.4" fill="none" />,
     pin: <path d="M12 21s7-6.2 7-12a7 7 0 10-14 0c0 5.8 7 12 7 12z" stroke="currentColor" strokeWidth="1.4" fill="none" />,
-    whatsapp: <path d="M12 3a9 9 0 00-7.8 13.5L3 21l4.6-1.2A9 9 0 1012 3z" stroke="currentColor" strokeWidth="0" fill="currentColor" />,
+    whatsapp: <path d="M12 3a9 9 0 00-7.8 13.5L3 21l4.6-1.2A9 9 0 1012 3z" fill="currentColor" />,
   };
-  return (
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
-      {paths[name]}
-    </svg>
-  );
+  return <svg width="17" height="17" viewBox="0 0 24 24" fill="none">{paths[name]}</svg>;
 }

@@ -24,11 +24,12 @@ export default function Contact() {
         <div className="container contact-grid">
           <Reveal>
             <div className="contact-info">
-              <ContactCard icon="phone" label="Call Us" value="+91 98765 43210" />
-              <ContactCard icon="mail" label="Email Us" value="hello@maamantraventures.com" />
-              <ContactCard icon="pin" label="Visit Us" value="Bangalore, India" />
+              <ContactCard icon="phone" label="Call Us" value="866 073 7223 | 890 401 1860" href="tel:+918660737223" />
+              <ContactCard icon="mail" label="Email Us" value="maamantraventures@gmail.com" href="mailto:maamantraventures@gmail.com" />
+              <ContactCard icon="pin" label="Visit Us" value="Shop No#8 Yenepoya Mall, Mallikatte, Kadri Road, Mangaluru, Karnataka 575003" />
+              <ContactCard icon="instagram" label="Instagram" value="@maamantraventures" href="https://instagram.com/maamantraventures" />
               <div className="contact-social-row">
-                <a href="#" aria-label="Instagram" className="contact-social"><Icon name="instagram" /></a>
+                <a href="https://instagram.com/maamantraventures" target="_blank" rel="noreferrer" aria-label="Instagram" className="contact-social"><Icon name="instagram" /></a>
                 <a href="#" aria-label="Facebook" className="contact-social"><Icon name="facebook" /></a>
                 <a href="#" aria-label="LinkedIn" className="contact-social"><Icon name="linkedin" /></a>
               </div>
@@ -56,16 +57,18 @@ export default function Contact() {
                   <label>I'm interested in</label>
                   <select required defaultValue="">
                     <option value="" disabled>Select a service</option>
-                    <option>Ad Films</option>
-                    <option>Social Media Marketing</option>
                     <option>Event Management</option>
+                    <option>Stage & Show Management</option>
+                    <option>Photography & Videography</option>
+                    <option>Advertising Solutions</option>
+                    <option>Brand Promotions</option>
                     <option>Something else</option>
                   </select>
                 </div>
               </div>
               <div className="form-group">
                 <label>Tell us about your project</label>
-                <textarea rows="5" placeholder="Share a few details..." required></textarea>
+                <textarea rows="5" placeholder="Share a few details — event type, date, expected guests..." required></textarea>
               </div>
               <button type="submit" className="btn btn-primary">
                 {sent ? 'Message Sent ✓' : 'Send Message'}
@@ -80,8 +83,8 @@ export default function Contact() {
   );
 }
 
-function ContactCard({ icon, label, value }) {
-  return (
+function ContactCard({ icon, label, value, href }) {
+  const inner = (
     <div className="contact-card">
       <div className="contact-card-icon"><Icon name={icon} /></div>
       <div>
@@ -90,6 +93,7 @@ function ContactCard({ icon, label, value }) {
       </div>
     </div>
   );
+  return href ? <a href={href} target={href.startsWith('http') ? '_blank' : undefined} rel="noreferrer" style={{ textDecoration: 'none' }}>{inner}</a> : inner;
 }
 
 function Icon({ name }) {
