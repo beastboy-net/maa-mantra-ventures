@@ -1,0 +1,32 @@
+.page-hero {
+  position: relative;
+  padding: 160px 0 70px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+
+.page-hero-glow {
+  position: absolute;
+  top: -20%;
+  left: -10%;
+  width: 50%;
+  height: 90%;
+  background: radial-gradient(circle, rgba(214, 162, 60, 0.16), transparent 70%);
+  filter: blur(70px);
+  animation: drift 16s ease-in-out infinite;
+}
+
+.page-hero-title {
+  font-size: clamp(32px, 4.6vw, 50px);
+  margin: 18px 0 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.page-hero-sub {
+  color: var(--text-muted);
+  font-size: 16px;
+  max-width: 600px;
+  position: relative;
+  z-index: 1;
+}
