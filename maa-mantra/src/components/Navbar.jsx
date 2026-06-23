@@ -3,9 +3,11 @@ import { Link, NavLink } from 'react-router-dom';
 import './Navbar.css';
 
 const services = [
-  { label: 'Ad Films', path: '/services/ad-films' },
-  { label: 'Social Media Marketing', path: '/services/social-media-marketing' },
   { label: 'Event Management', path: '/services/event-management' },
+  { label: 'Stage & Show Management', path: '/services/event-management' },
+  { label: 'Photography & Videography', path: '/services/ad-films' },
+  { label: 'Advertising Solutions', path: '/services/social-media-marketing' },
+  { label: 'Brand Promotions', path: '/services/social-media-marketing' },
 ];
 
 export default function Navbar() {
