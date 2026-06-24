@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import Reveal from '../components/Reveal';
 import MMVHeroCanvas from '../components/MMVHeroCanvas';
+import HeroWavesBg from '../components/HeroWavesBg';
 import './Home.css';
 
 const services = [
@@ -39,6 +40,7 @@ export default function Home() {
       {/* HERO */}
       <section className="hero">
         <div className="hero-glow" />
+        <HeroWavesBg />
         <div className="container hero-inner">
           <Reveal><span className="eyebrow">Maa Mantra Ventures — Mangalore</span></Reveal>
           <Reveal delay={1}>
