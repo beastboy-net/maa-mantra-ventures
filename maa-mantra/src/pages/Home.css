@@ -57,48 +57,6 @@
   grid-column: 2;
 }
 
-.hero-frame {
-  position: relative;
-  border-radius: 16px;
-  overflow: hidden;
-  aspect-ratio: 4 / 3.1;
-  background:
-    radial-gradient(circle at 50% 75%, rgba(214, 162, 60, 0.25), transparent 55%),
-    linear-gradient(160deg, #1c1f1a 0%, #0f1210 55%, #06070a 100%);
-  border: 1px solid var(--border);
-  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.7);
-}
-
-.hero-lights {
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(circle, rgba(214, 162, 60, 0.9) 1.5px, transparent 1.6px);
-  background-size: 38px 38px;
-  background-position: 0 -10px;
-  opacity: 0.5;
-  mask-image: linear-gradient(180deg, black 0%, transparent 45%);
-  animation: pulseGlow 3s ease-in-out infinite;
-}
-
-.hero-mmv {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(48px, 9vw, 96px);
-  color: var(--gold);
-  letter-spacing: 0.04em;
-  text-shadow: 0 0 40px rgba(214,162,60,0.8), 0 0 100px rgba(214,162,60,0.4);
-}
-.hero-stage {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 42%;
-  background: linear-gradient(180deg, transparent, rgba(214, 162, 60, 0.08) 60%, rgba(0, 0, 0, 0.4));
-  clip-path: polygon(15% 100%, 85% 100%, 70% 30%, 30% 30%);
-  border-top: 1px solid rgba(214, 162, 60, 0.2);
-}
-
 /* STATS BAR */
 .hero-stats {
   width: 100%;
@@ -210,11 +168,6 @@
 
 .services-grid--5 {
   grid-template-columns: repeat(3, 1fr);
-}
-
-.services-grid--5 .service-card:nth-child(4),
-.services-grid--5 .service-card:nth-child(5) {
-  /* last row centers 2 cards */
 }
 
 @media (min-width: 1100px) {
@@ -554,16 +507,3 @@
   pointer-events: none;
 }
 .service-card:hover .service-card__glow { opacity: 1; }
-
-/* ── Hero MMV text inside aurora box ── */
-.hero-mmv {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(48px, 9vw, 96px);
-  color: var(--gold);
-  letter-spacing: 0.04em;
-  text-shadow: 0 0 40px rgba(214,162,60,0.8), 0 0 100px rgba(214,162,60,0.4);
-  position: relative;
-  z-index: 2;
-  user-select: none;
-}
