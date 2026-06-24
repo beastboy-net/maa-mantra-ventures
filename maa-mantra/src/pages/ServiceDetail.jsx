@@ -46,7 +46,7 @@ export default function ServiceDetail({ data }) {
           </Reveal>
           <div className="svc-features-grid">
             {features.map((f, i) => (
-              <Reveal key={f.title} delay={Math.min(i + 1, 4)}>
+              <Reveal key={f.title} delay={Math.min(i + 1, 4)} className="reveal-rotate">
                 <div className="svc-feature-card">
                   <div className="svc-feature-icon">{f.icon}</div>
                   <h3>{f.title}</h3>
@@ -89,7 +89,7 @@ export default function ServiceDetail({ data }) {
             </Reveal>
             <div className="svc-gallery-grid">
               {gallery.map((g, i) => (
-                <Reveal key={g} delay={Math.min(i + 1, 4)}>
+                <Reveal key={g} delay={Math.min(i + 1, 4)} className="reveal-scale">
                   <div className="svc-gallery-item">
                     <span>{g}</span>
                   </div>
@@ -139,7 +139,7 @@ export default function ServiceDetail({ data }) {
 
       <section className="cta-band">
         <div className="container cta-inner">
-          <Reveal><h2 className="section-title">Ready to Start Your <span className="accent">{title}</span> Project?</h2></Reveal>
+          <Reveal className="reveal-rotate"><h2 className="section-title">Ready to Start Your <span className="accent">{title}</span> Project?</h2></Reveal>
           <Reveal delay={1}>
             <Link to="/contact" className="btn btn-primary">
               Let&rsquo;s Talk

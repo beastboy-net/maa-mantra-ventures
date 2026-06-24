@@ -163,6 +163,52 @@ h1, h2, h3, h4 {
 .reveal-delay-3 { transition-delay: 0.3s; }
 .reveal-delay-4 { transition-delay: 0.4s; }
 
+/* reveal variants — pass as className on <Reveal> */
+.reveal-fade {
+  transform: none;
+}
+
+.reveal-scale {
+  transform: scale(0.92);
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+}
+.reveal-scale.in-view {
+  transform: scale(1);
+}
+
+.reveal-blur {
+  transform: none;
+  filter: blur(10px);
+  transition: opacity 0.8s var(--ease), filter 0.9s var(--ease);
+}
+.reveal-blur.in-view {
+  filter: blur(0);
+}
+
+.reveal-rotate {
+  transform: rotate(-4deg) translateY(24px);
+  transition: opacity 0.85s var(--ease), transform 0.85s var(--ease);
+}
+.reveal-rotate.in-view {
+  transform: rotate(0deg) translateY(0);
+}
+
+.reveal-left {
+  transform: translateX(-40px);
+  transition: opacity 0.85s var(--ease), transform 0.85s var(--ease);
+}
+.reveal-left.in-view {
+  transform: translateX(0);
+}
+
+.reveal-right {
+  transform: translateX(40px);
+  transition: opacity 0.85s var(--ease), transform 0.85s var(--ease);
+}
+.reveal-right.in-view {
+  transform: translateX(0);
+}
+
 @keyframes drift {
   0%, 100% { transform: translate(0, 0); }
   50% { transform: translate(-3%, 2%); }

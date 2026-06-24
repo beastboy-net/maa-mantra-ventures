@@ -49,7 +49,7 @@ export default function Portfolio() {
 
           <div className="portfolio-grid">
             {filtered.map((p, i) => (
-              <Reveal key={p.title} delay={Math.min((i % 4) + 1, 4)}>
+              <Reveal key={p.title} delay={Math.min((i % 4) + 1, 4)} className="reveal-scale">
                 <div className="portfolio-grid-item">
                   <div className="portfolio-thumb">
                     {p.video && (

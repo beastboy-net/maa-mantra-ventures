@@ -25,7 +25,7 @@ export default function Testimonials() {
         <div className="container">
           <div className="testimonial-grid">
             {testimonials.map((t, i) => (
-              <Reveal key={t.name} delay={Math.min((i % 4) + 1, 4)}>
+              <Reveal key={t.name} delay={Math.min((i % 4) + 1, 4)} className="reveal-blur">
                 <div className="testimonial-card">
                   <svg className="quote-mark" viewBox="0 0 32 24" fill="none"><path d="M0 24V12.5C0 5 4.5 0.5 11 0v4.5C7 5.5 5 8 5 12h6v12H0zm16 0V12.5C16 5 20.5 0.5 27 0v4.5c-4 1-6 3.5-6 7h6v12H16z" fill="currentColor" /></svg>
                   <p>{t.quote}</p>

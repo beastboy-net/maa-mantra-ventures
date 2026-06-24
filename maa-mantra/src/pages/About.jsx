@@ -35,7 +35,7 @@ export default function About() {
 
       <section className="section">
         <div className="container about-grid">
-          <Reveal>
+          <Reveal className="reveal-scale">
             <div className="about-visual" />
           </Reveal>
           <Reveal delay={1}>
@@ -87,7 +87,7 @@ export default function About() {
           </Reveal>
           <div className="about-timeline">
             {milestones.map((m, i) => (
-              <Reveal key={m.year} delay={Math.min(i + 1, 4)}>
+              <Reveal key={m.year} delay={Math.min(i + 1, 4)} className={i % 2 === 0 ? 'reveal-left' : 'reveal-right'}>
                 <div className="about-timeline-item">
                   <div className="about-timeline-year">{m.year}</div>
                   <div className="about-timeline-dot" />
@@ -110,7 +110,7 @@ export default function About() {
           </Reveal>
           <div className="about-values-grid">
             {values.map((v, i) => (
-              <Reveal key={v.title} delay={Math.min(i + 1, 4)}>
+              <Reveal key={v.title} delay={Math.min(i + 1, 4)} className="reveal-scale">
                 <div className="about-value-card">
                   <h3>{v.title}</h3>
                   <p>{v.desc}</p>

@@ -148,7 +148,8 @@ export default function Home() {
             <div className="portfolio-track-wrap">
               <div className="portfolio-track" style={{ transform: `translateX(-${slide * (100 / visibleCount)}%)` }}>
                 {portfolio.map((p) => (
-                  <div className="portfolio-item" key={p.title}>
+                  <Reveal key={p.title} className="reveal-scale" threshold={0.1}>
+                  <div className="portfolio-item">
                     <div className="portfolio-thumb">
                       {p.video && (
                         <span className="portfolio-play">
@@ -159,6 +160,7 @@ export default function Home() {
                     <h4>{p.title}</h4>
                     <span>{p.tag}</span>
                   </div>
+                  </Reveal>
                 ))}
               </div>
             </div>
@@ -178,7 +180,7 @@ export default function Home() {
           </Reveal>
           <div className="testimonial-grid">
             {testimonials.map((t, i) => (
-              <Reveal key={t.name} delay={Math.min(i + 1, 4)}>
+              <Reveal key={t.name} delay={Math.min(i + 1, 4)} className="reveal-blur">
                 <div className="testimonial-card">
                   <svg className="quote-mark" viewBox="0 0 32 24" fill="none"><path d="M0 24V12.5C0 5 4.5 0.5 11 0v4.5C7 5.5 5 8 5 12h6v12H0zm16 0V12.5C16 5 20.5 0.5 27 0v4.5c-4 1-6 3.5-6 7h6v12H16z" fill="currentColor" /></svg>
                   <p>{t.quote}</p>
@@ -203,7 +205,7 @@ export default function Home() {
       <section className="cta-band">
         <div className="container cta-inner">
           <Reveal><span className="eyebrow">Ready to Create Something Amazing?</span></Reveal>
-          <Reveal delay={1}>
+          <Reveal delay={1} className="reveal-rotate">
             <h2 className="section-title">Let&rsquo;s Bring Your <span className="accent">Vision</span> to Life</h2>
           </Reveal>
           <Reveal delay={2}>
