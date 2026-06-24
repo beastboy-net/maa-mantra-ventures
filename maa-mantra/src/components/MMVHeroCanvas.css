@@ -1,0 +1,97 @@
+.mmv-canvas-wrap {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3.1;
+  background: linear-gradient(160deg, #0e1008 0%, #0a0c06 55%, #060708 100%);
+  border: 1px solid rgba(214, 162, 60, 0.25);
+  box-shadow:
+    0 0 0 1px rgba(214,162,60,0.08),
+    0 40px 90px -30px rgba(0,0,0,0.8),
+    0 0 60px -20px rgba(214,162,60,0.15);
+  cursor: crosshair;
+}
+
+.mmv-canvas-wrap canvas {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Overlay UI on top of canvas */
+.mmv-canvas-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Dot grid */
+.mmv-canvas-dots {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(214,162,60,0.7) 1px, transparent 1px);
+  background-size: 36px 36px;
+  background-position: 0 0;
+  opacity: 0.3;
+  -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, transparent 55%);
+  mask-image: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, transparent 55%);
+}
+
+/* MMV text */
+.mmv-canvas-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  z-index: 2;
+}
+
+.mmv-canvas-initials {
+  font-family: var(--font-display);
+  font-size: clamp(64px, 10vw, 110px);
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-shadow:
+    0 0 30px rgba(214,162,60,0.9),
+    0 0 60px rgba(214,162,60,0.5),
+    0 0 120px rgba(214,162,60,0.25);
+  animation: mmvPulse 3s ease-in-out infinite;
+}
+
+@keyframes mmvPulse {
+  0%, 100% { text-shadow: 0 0 30px rgba(214,162,60,0.9), 0 0 60px rgba(214,162,60,0.5), 0 0 120px rgba(214,162,60,0.25); }
+  50% { text-shadow: 0 0 40px rgba(240,200,105,1), 0 0 80px rgba(214,162,60,0.7), 0 0 150px rgba(214,162,60,0.35); }
+}
+
+.mmv-canvas-name {
+  font-size: clamp(9px, 1.1vw, 13px);
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  color: rgba(214,162,60,0.65);
+  text-transform: uppercase;
+}
+
+/* Stage floor */
+.mmv-canvas-stage {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 38%;
+  background: linear-gradient(180deg,
+    transparent 0%,
+    rgba(214,162,60,0.04) 50%,
+    rgba(214,162,60,0.12) 100%
+  );
+  clip-path: polygon(12% 100%, 88% 100%, 72% 20%, 28% 20%);
+  border-top: 1px solid rgba(214,162,60,0.15);
+}

@@ -1,9 +1,15 @@
 
-.gag-wrap {
+.gag-outer {
   position: relative;
   border-radius: 16px;
-  overflow: hidden;
   aspect-ratio: 4 / 3.1;
+}
+
+.gag-wrap {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  overflow: hidden;        /* ← add this back */
   background: linear-gradient(160deg, #1c1f1a 0%, #0f1210 55%, #06070a 100%);
   border: 1px solid rgba(214, 162, 60, 0.25);
   box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.7);

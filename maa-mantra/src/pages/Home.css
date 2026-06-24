@@ -81,18 +81,13 @@
 }
 
 .hero-mmv {
-  position: absolute;
-  top: 38%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   font-family: var(--font-display);
   font-weight: 700;
   font-size: clamp(48px, 9vw, 96px);
   color: var(--gold);
   letter-spacing: 0.04em;
-  text-shadow: 0 0 50px rgba(214, 162, 60, 0.65), 0 0 120px rgba(214, 162, 60, 0.3);
+  text-shadow: 0 0 40px rgba(214,162,60,0.8), 0 0 100px rgba(214,162,60,0.4);
 }
-
 .hero-stage {
   position: absolute;
   bottom: 0;

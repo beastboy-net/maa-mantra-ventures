@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import Reveal from '../components/Reveal';
-import GoldAuroraGlow from '../components/GoldAuroraGlow';
+import MMVHeroCanvas from '../components/MMVHeroCanvas';
 import './Home.css';
 
 const services = [
@@ -67,9 +67,7 @@ export default function Home() {
           </Reveal>
 
           <div className="hero-visual">
-            <GoldAuroraGlow>
-              <span className="hero-mmv">MMV</span>
-            </GoldAuroraGlow>
+            <MMVHeroCanvas />
           </div>
         </div>
 
