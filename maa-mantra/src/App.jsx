@@ -3,7 +3,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import FloatingWhatsapp from './components/FloatingWhatsapp';
 import ScrollToTop from './components/ScrollToTop';
-
+import IntroSplash from './components/IntroSplash';
 import Home from './pages/Home';
 import About from './pages/About';
 import Portfolio from './pages/Portfolio';
@@ -16,6 +16,7 @@ import EventManagement from './pages/EventManagement';
 export default function App() {
   return (
     <>
+      <IntroSplash />
       <ScrollToTop />
       <Navbar />
       <main>
