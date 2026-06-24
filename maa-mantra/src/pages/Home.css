@@ -547,3 +547,28 @@
   .services-grid--5 { grid-template-columns: 1fr; }
   .hero-stats-inner { flex-direction: column; gap: 20px; }
 }
+
+/* ── Service card hover glow ── */
+.service-card__glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  opacity: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(214,162,60,0.18), transparent 65%);
+  transition: opacity 0.5s var(--ease);
+  pointer-events: none;
+}
+.service-card:hover .service-card__glow { opacity: 1; }
+
+/* ── Hero MMV text inside aurora box ── */
+.hero-mmv {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(48px, 9vw, 96px);
+  color: var(--gold);
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 40px rgba(214,162,60,0.8), 0 0 100px rgba(214,162,60,0.4);
+  position: relative;
+  z-index: 2;
+  user-select: none;
+}
