@@ -1,8 +1,16 @@
 .page-hero {
   position: relative;
-  padding: 160px 0 70px;
+  min-height: 560px;
+  padding: 160px 0 90px;
+  display: flex;
+  align-items: center;
   overflow: hidden;
   border-bottom: 1px solid var(--border);
+}
+
+.page-hero > .container {
+  position: relative;
+  z-index: 1;
 }
 
 .page-hero-glow {
