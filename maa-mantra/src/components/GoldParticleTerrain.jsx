@@ -153,12 +153,12 @@ function GoldTerrain({ mouse, count }) {
 
       // Radial falloff from a focal point shifted center-right & toward camera,
       // so the brightest, most "solid" terrain sits center-right as requested.
-      vec2 focal = vec2(4.0, 2.0);
+      vec2 focal = vec2(9.0, 6.0);
       float distFromFocal = distance(pos.xz, focal);
-      float edgeFade = smoothstep(20.0, 4.0, distFromFocal);
+      float edgeFade = smoothstep(20.0, 6.0, distFromFocal);
 
       vHeight = height;
-      vGlow = smoothstep(0.15, 0.9, height) * edgeFade;
+      vGlow = smoothstep(0.35, 1.1, height) * edgeFade;
       vEdgeFade = edgeFade;
       vSeed = aSeed;
 
@@ -185,13 +185,13 @@ function GoldTerrain({ mouse, count }) {
       vec3 color = mix(uColorDim, uColorGold, smoothstep(-0.3, 0.6, vHeight));
       color = mix(color, uColorHot, vGlow);
 
-      float alpha = circle * vEdgeFade * (0.35 + vGlow * 0.65) * (0.6 + vSeed * 0.4);
+      float alpha = circle * vEdgeFade * (0.22 + vGlow * 0.45) * (0.6 + vSeed * 0.4);
       gl_FragColor = vec4(color, alpha);
     }
   `;
 
   return (
-    <points ref={ref} geometry={geometry} position={[0, -2.4, -2]} rotation={[-0.08, 0, 0]}>
+    <points ref={ref} geometry={geometry} position={[2, -3.6, -5]} rotation={[-0.08, 0, 0]}>
       <shaderMaterial
         ref={matRef}
         uniforms={uniforms}
@@ -390,11 +390,11 @@ export default function GoldParticleTerrain({ className = '' }) {
         <Scene particleCount={particleCount} dustCount={dustCount} />
         <EffectComposer multisampling={0}>
           <Bloom
-            intensity={0.65}
-            luminanceThreshold={0.15}
-            luminanceSmoothing={0.4}
+            intensity={0.28}
+            luminanceThreshold={0.45}
+            luminanceSmoothing={0.3}
             mipmapBlur
-            radius={0.6}
+            radius={0.4}
           />
           <Vignette eskil={false} offset={0.25} darkness={0.55} />
         </EffectComposer>
