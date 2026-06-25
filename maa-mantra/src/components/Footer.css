@@ -93,6 +93,11 @@
   margin-top: 8px;
   justify-content: center;
   width: fit-content;
+  color: #16130a !important;
+}
+
+.footer-whatsapp svg {
+  color: #16130a !important;
 }
 
 .footer-bottom {
