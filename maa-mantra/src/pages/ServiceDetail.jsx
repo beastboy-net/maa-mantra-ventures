@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import Reveal from '../components/Reveal';
+import HeroWavesBg from '../components/HeroWavesBg';
 import './Home.css';
 import './ServiceDetail.css';
 
@@ -10,6 +11,7 @@ export default function ServiceDetail({ data }) {
     <div className="page-enter">
       <section className="svc-hero">
         <div className="svc-hero-glow" />
+        <HeroWavesBg />
         <div className="container svc-hero-inner">
           <Reveal>
             <Link to="/" className="svc-breadcrumb">
