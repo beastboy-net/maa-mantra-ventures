@@ -2,7 +2,59 @@
   position: relative;
   border-radius: 22px;
   aspect-ratio: 4 / 2.85;
-  perspective: 1000px;
+  overflow: visible;
+  overflow-anchor: none;
+  contain: layout style;
+}
+
+.mmv-flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 22px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  overflow: hidden;
+}
+
+.mmv-card-inner.mmv-flip-front,
+.mmv-card-inner.mmv-flip-back {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+  transform-origin: center center;
+}
+
+.mmv-card-inner.mmv-flip-front {
+  transform: scaleX(1);
+  opacity: 1;
+}
+
+.mmv-card-inner.mmv-flip-back {
+  transform: scaleX(0);
+  opacity: 0;
+}
+
+.mmv-flip-inner.mmv-flipped .mmv-card-inner.mmv-flip-front {
+  transform: scaleX(0);
+  opacity: 0;
+}
+
+.mmv-flip-inner.mmv-flipped .mmv-card-inner.mmv-flip-back {
+  transform: scaleX(1);
+  opacity: 1;
+}
+
+.mmv-flip-back-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  padding: 0 30px;
 }
 
 .mmv-card-inner {
@@ -19,6 +71,8 @@
   align-items: center;
   justify-content: center;
   transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   transition: transform 0.15s ease-out, box-shadow 0.3s ease-out;
   cursor: pointer;
 }

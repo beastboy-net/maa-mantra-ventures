@@ -1,5 +1,13 @@
 import ServiceDetail from './ServiceDetail';
 
+import snowmanCover from '../assets/portfolio/brand-gallery/snowman-icecreams.jpg';
+import snowmanVideo from '../assets/portfolio/brand-gallery/snowman-icecreams.mp4';
+import kiaCover from '../assets/portfolio/brand-gallery/kia-launch.jpg';
+import retailCover from '../assets/portfolio/brand-gallery/retail-activation.jpg';
+import caratlaneCover from '../assets/portfolio/brand-gallery/caratlane-campaign.jpg';
+import tvsCover from '../assets/portfolio/brand-gallery/tvs-ronin-launch.jpg';
+import sunCover from '../assets/portfolio/brand-gallery/sun-network-event.jpg';
+
 const heroIcon = (
   <svg viewBox="0 0 24 24" fill="none">
     <path d="M3 10v4h3l6 4V6L6 10H3z" stroke="currentColor" strokeWidth="1.2" />
@@ -53,7 +61,14 @@ const data = {
     { title: 'Run & Optimize Ads', desc: 'Paid campaigns launched, tested and refined for performance.' },
     { title: 'Report & Iterate', desc: 'Monthly insights that shape next month\u2019s strategy.' },
   ],
-  gallery: ['Fashion Brand Reels', 'D2C Meta Ads Campaign', 'Restaurant Launch Buzz', 'SaaS LinkedIn Growth', 'Festive Carousel Series', 'Influencer Collab Shoot'],
+  gallery: [
+    { title: 'Snow Man Icecreams Reel', image: snowmanCover, video: snowmanVideo },
+    { title: 'KIA Product Launch Campaign', image: kiaCover },
+    { title: 'Retail Brand Activation', image: retailCover },
+    { title: 'Caratlane Golden Bond Campaign', image: caratlaneCover },
+    { title: 'TVS Ronin Bike Launch', image: tvsCover },
+    { title: 'SUN Simulation User Network Event', image: sunCover },
+  ],
   faqs: [
     { q: 'Which platforms do you manage?', a: 'Instagram, Facebook, LinkedIn, YouTube and X — tailored to where your audience actually is.' },
     { q: 'Do you handle ad spend separately?', a: 'Yes, ad spend is billed directly to your account; our fee covers strategy, creative and management.' },

@@ -1,46 +1,104 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import './MMVHeroCanvas.css';
+import mmvLogo from '../assets/mmv_logo.png';
 
 export default function MMVHeroCanvas() {
   const cardRef = useRef(null);
   const glowRef = useRef(null);
+  const [flipped, setFlipped] = useState(false);
+  const [backIdx, setBackIdx] = useState(0);
+  const lastTapRef = useRef(0);
+  const rafRef = useRef(null);
+  const pendingRef = useRef(null);
 
-  function handleMouseMove(e) {
+  const BACK_MESSAGES = [
+    { l1: 'Crafting Moments,', l2: 'Creating Memories' },
+    { l1: 'Turning Visions,', l2: 'Into Celebrations' },
+    { l1: 'Every Event,', l2: 'A Story Worth Telling' },
+    { l1: 'Precision Planning,', l2: 'Flawless Execution' },
+    { l1: 'Bold Ideas,', l2: 'Brilliant Brands' },
+    { l1: 'Grand Stages,', l2: 'Greater Impact' },
+    { l1: 'Where Strategy,', l2: 'Meets Spectacle' },
+    { l1: 'From Concept,', l2: 'To Curtain Call' },
+    { l1: 'Loud Campaigns,', l2: 'Lasting Impressions' },
+    { l1: 'Your Vision,', l2: 'Our Mission' },
+    { l1: 'Passion Driven,', l2: 'Detail Obsessed' },
+    { l1: 'Mangalore Roots,', l2: 'Limitless Reach' },
+    { l1: 'Big Dreams,', l2: 'Bigger Delivery' },
+    { l1: 'Events That,', l2: 'Move People' },
+  ];
+
+  function handleCardTap() {
+    const now = Date.now();
+    if (now - lastTapRef.current < 350) {
+      setFlipped(f => {
+        const next = !f;
+        if (next) setBackIdx(i => (i + 1) % BACK_MESSAGES.length);
+        return next;
+      });
+      lastTapRef.current = 0;
+      resetTilt();
+    } else {
+      lastTapRef.current = now;
+    }
+  }
+
+  function resetTilt() {
     const card = cardRef.current;
     const glow = glowRef.current;
-    if (!card || !glow) return;
+    if (card) {
+      card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
+      card.classList.remove('mmv-card--active');
+    }
+    if (glow) glow.style.opacity = '0';
+  }
 
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const cx = rect.width / 2;
-    const cy = rect.height / 2;
+  function applyTilt() {
+    const card = cardRef.current;
+    const glow = glowRef.current;
+    const p = pendingRef.current;
+    rafRef.current = null;
+    if (!card || !glow || !p) return;
 
+    const { x, y, cx, cy } = p;
     const rotateY = ((x - cx) / cx) * 7;
     const rotateX = -((y - cy) / cy) * 7;
 
-    card.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg) scale(1.015)`;
+    card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.015)`;
     card.classList.add('mmv-card--active');
-
     glow.style.left = `${x}px`;
     glow.style.top = `${y}px`;
     glow.style.opacity = '1';
   }
 
-  function handleMouseLeave() {
+  function handleMouseMove(e) {
+    if (flipped) return;
     const card = cardRef.current;
-    const glow = glowRef.current;
-    if (!card || !glow) return;
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    pendingRef.current = {
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+      cx: rect.width / 2,
+      cy: rect.height / 2,
+    };
+    if (rafRef.current == null) {
+      rafRef.current = requestAnimationFrame(applyTilt);
+    }
+  }
 
-    card.style.transform = 'rotateY(0deg) rotateX(0deg) scale(1)';
-    card.classList.remove('mmv-card--active');
-    glow.style.opacity = '0';
+  function handleMouseLeave() {
+    if (rafRef.current != null) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    }
+    resetTilt();
   }
 
   function handleTouchStart(e) {
     const card = cardRef.current;
     const glow = glowRef.current;
-    if (!card || !glow) return;
+    if (!card || !glow || flipped) return;
 
     const rect = card.getBoundingClientRect();
     const touch = e.touches[0];
@@ -75,32 +133,46 @@ export default function MMVHeroCanvas() {
   return (
     <div id="mmv-hero-slot" className="mmv-canvas-wrap">
       <div
-        ref={cardRef}
-        className="mmv-card-inner"
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
+        className={`mmv-flip-inner${flipped ? ' mmv-flipped' : ''}`}
+        onClick={handleCardTap}
+        onMouseDown={(e) => e.preventDefault()}
       >
-        <div className="mmv-canvas-dots" />
-        <div className="mmv-diag mmv-diag--tl" />
-        <div className="mmv-diag mmv-diag--br" />
-        <div className="mmv-bracket mmv-bracket--tr" />
-        <div className="mmv-bracket mmv-bracket--bl" />
-        <div ref={glowRef} className="mmv-glow-cursor" />
+        <div
+          ref={cardRef}
+          className="mmv-card-inner mmv-flip-front"
+          style={{ pointerEvents: flipped ? 'none' : 'auto' }}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
+          <div className="mmv-canvas-dots" />
+          <div className="mmv-diag mmv-diag--tl" />
+          <div className="mmv-diag mmv-diag--br" />
+          <div className="mmv-bracket mmv-bracket--tr" />
+          <div className="mmv-bracket mmv-bracket--bl" />
+          <div ref={glowRef} className="mmv-glow-cursor" />
 
-        <svg className="mmv-mark" viewBox="0 0 100 80">
-          <path d="M10 8 L10 60 Q10 68 18 68 L34 68 L34 60 L20 60 L20 24 L50 50 L80 24 L80 60 L66 60 L66 68 L82 68 Q90 68 90 60 L90 8 L50 40 Z" />
-          <polygon className="mmv-diamond" points="50,18 58,28 50,38 42,28" />
-        </svg>
+          <img src={mmvLogo} alt="MMV Logo" className="mmv-mark" style={{ width: '90px', height: 'auto', objectFit: 'contain', display: 'block', margin: '0 auto' }} />
 
-        <div className="mmv-canvas-text">
-          <span className="mmv-canvas-initials">MMV</span>
-          <div className="mmv-line-accent" />
-          <span className="mmv-canvas-name">Maa Mantra Ventures</span>
+          <div className="mmv-canvas-text">
+            <span className="mmv-canvas-initials">MMV</span>
+            <div className="mmv-line-accent" />
+            <span className="mmv-canvas-name">Maa Mantra Ventures</span>
+          </div>
+
+          <div className="mmv-canvas-stage" />
         </div>
 
-        <div className="mmv-canvas-stage" />
+        <div className="mmv-card-inner mmv-flip-back" style={{ pointerEvents: flipped ? 'auto' : 'none' }}>
+          <div className="mmv-canvas-dots" />
+          <div className="mmv-flip-back-content">
+            <span className="mmv-canvas-initials" style={{ fontSize: 'clamp(20px, 2.6vw, 26px)' }}>{BACK_MESSAGES[backIdx].l1}</span>
+            <span className="mmv-canvas-initials" style={{ fontSize: 'clamp(20px, 2.6vw, 26px)' }}>{BACK_MESSAGES[backIdx].l2}</span>
+            <div className="mmv-line-accent" />
+            <span className="mmv-canvas-name">Maa Mantra Ventures — Mangalore</span>
+          </div>
+        </div>
       </div>
     </div>
   );

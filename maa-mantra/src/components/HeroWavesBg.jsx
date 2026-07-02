@@ -9,14 +9,23 @@ export default function HeroWavesBg() {
     const mount = mountRef.current;
     if (!mount) return;
 
-    const W = mount.clientWidth;
-    const H = mount.clientHeight;
+    const W = mount.clientWidth || mount.parentElement?.clientWidth || window.innerWidth;
+    const H = mount.clientHeight || mount.parentElement?.clientHeight || window.innerHeight;
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    let renderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, failIfMajorPerformanceCaveat: false });
+    } catch (e) {
+      console.warn('HeroWavesBg: WebGL unavailable, skipping animated background.', e);
+      return;
+    }
     renderer.setSize(W, H);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setClearColor(0x000000, 0);
     mount.appendChild(renderer.domElement);
+
+    const onContextLost = (e) => { e.preventDefault(); console.warn('HeroWavesBg: WebGL context lost.'); };
+    renderer.domElement.addEventListener('webglcontextlost', onContextLost, false);
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(55, W / H, 0.1, 100);
@@ -154,16 +163,24 @@ export default function HeroWavesBg() {
     const onResize = () => {
       const w = mount.clientWidth;
       const h = mount.clientHeight;
+      if (w === 0 || h === 0) return;
       renderer.setSize(w, h);
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
     };
     window.addEventListener('resize', onResize);
 
+    const ro = new ResizeObserver(onResize);
+    ro.observe(mount);
+    // Catch the case where layout settles a tick after mount (fonts/overlay).
+    requestAnimationFrame(onResize);
+
     return () => {
       cancelAnimationFrame(animId);
+      ro.disconnect();
       window.removeEventListener('mousemove', onMove);
       window.removeEventListener('resize', onResize);
+      renderer.domElement.removeEventListener('webglcontextlost', onContextLost);
       if (mount.contains(renderer.domElement)) mount.removeChild(renderer.domElement);
       renderer.dispose();
     };

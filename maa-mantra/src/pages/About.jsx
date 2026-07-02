@@ -1,5 +1,7 @@
 import PageHeader from '../components/PageHeader';
 import Reveal from '../components/Reveal';
+import aboutBanner from '../assets/about-banner.jpg';
+import useSEO from '../hooks/useSEO';
 import './About.css';
 
 const stats = [
@@ -24,6 +26,10 @@ const milestones = [
 ];
 
 export default function About() {
+  useSEO(
+    'About Us | Maa Mantra Ventures',
+    '15+ years in digital marketing, 500+ projects delivered. Learn about Maa Mantra Ventures, Mangalore\'s event and brand marketing agency.'
+  );
   return (
     <div className="page-enter">
       <PageHeader
@@ -36,7 +42,9 @@ export default function About() {
       <section className="section">
         <div className="container about-grid">
           <Reveal className="reveal-scale">
-            <div className="about-visual" />
+            <div className="about-visual">
+              <img src={aboutBanner} alt="Maa Mantra Ventures event banner" />
+            </div>
           </Reveal>
           <Reveal delay={1}>
             <div>

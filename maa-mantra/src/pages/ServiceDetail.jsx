@@ -1,11 +1,16 @@
 import { Link } from 'react-router-dom';
 import Reveal from '../components/Reveal';
 import HeroWavesBg from '../components/HeroWavesBg';
+import useSEO from '../hooks/useSEO';
 import './Home.css';
 import './ServiceDetail.css';
 
 export default function ServiceDetail({ data }) {
   const { eyebrow, title, accent, intro, heroIcon, features, process, gallery, faqs, otherServices } = data;
+  useSEO(
+    `${title} ${accent} | Maa Mantra Ventures`,
+    typeof intro === 'string' ? intro.slice(0, 160) : `${eyebrow} services by Maa Mantra Ventures, Mangalore.`
+  );
 
   return (
     <div className="page-enter">
@@ -90,13 +95,28 @@ export default function ServiceDetail({ data }) {
               <h2 className="section-title">See It In <span className="accent">Action</span></h2>
             </Reveal>
             <div className="svc-gallery-grid">
-              {gallery.map((g, i) => (
-                <Reveal key={g} delay={Math.min(i + 1, 4)} className="reveal-scale">
-                  <div className="svc-gallery-item">
-                    <span>{g}</span>
-                  </div>
-                </Reveal>
-              ))}
+              {gallery.map((g, i) => {
+                /* support old format (plain string), image items, and video items */
+                const item = typeof g === 'string' ? { title: g, image: null, video: null } : g;
+                return (
+                  <Reveal key={item.title} delay={Math.min(i + 1, 4)} className="reveal-scale">
+                    <div className="svc-gallery-item">
+                      {item.video && (
+                        <video
+                          src={item.video}
+                          poster={item.image || undefined}
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                        />
+                      )}
+                      {!item.video && item.image && <img src={item.image} alt={item.title} loading="lazy" />}
+                      <span>{item.title}</span>
+                    </div>
+                  </Reveal>
+                );
+              })}
             </div>
           </div>
         </section>

@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import './Navbar.css';
+import mmvLogo from '../assets/mmv_logo.png';
 
 const services = [
   { label: 'Event Management', path: '/services/event-management' },
-  { label: 'Stage & Show Management', path: '/services/event-management' },
   { label: 'Photography & Videography', path: '/services/ad-films' },
-  { label: 'Advertising Solutions', path: '/services/social-media-marketing' },
   { label: 'Brand Promotions', path: '/services/social-media-marketing' },
 ];
 
@@ -25,13 +24,7 @@ export default function Navbar() {
     <header className={`nav ${scrolled ? 'nav-scrolled' : ''}`}>
       <div className="nav-inner container">
         <Link to="/" className="nav-logo" onClick={() => setMenuOpen(false)}>
-          <svg width="34" height="34" viewBox="0 0 40 40" fill="none">
-            <path d="M4 34V10L20 22L36 10V34" stroke="#d6a23c" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-          <div className="nav-logo-text">
-            <span className="nav-logo-main">maa<br />mantra</span>
-            <span className="nav-logo-sub">Ventures</span>
-          </div>
+          <img src={mmvLogo} alt="Maa Mantra Ventures" style={{ height: '44px', width: 'auto', objectFit: 'contain' }} />
         </Link>
 
         <nav className={`nav-links ${menuOpen ? 'open' : ''}`}>

@@ -1,6 +1,6 @@
 {
   "name": "maa-mantra-ventures",
-  "homepage": "https://beastboy-net.github.io/maa-mantra-ventures/",
+  "homepage": "https://maamantraventure.com",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -19,7 +19,7 @@
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "react-router-dom": "^7.18.0",
-    "three": "^0.184.0"
+    "three": "^0.182.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

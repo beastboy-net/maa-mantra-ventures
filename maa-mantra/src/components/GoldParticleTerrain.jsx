@@ -1,8 +1,22 @@
 import { useRef, useMemo, useState, useEffect } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing';
 import * as THREE from 'three';
 import './GoldParticleTerrain.css';
+
+/* Deterministic PRNG (mulberry32) — React requires render/useMemo bodies to be
+   pure, so plain Math.random() (impure, non-reproducible) is not allowed here.
+   Same seed always yields same sequence, keeping memoized geometry stable. */
+function mulberry32(seed) {
+  let a = seed;
+  return function () {
+    a |= 0;
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
 
 /* ──────────────────────────────────────────────────────────────────────────
    Simplex noise (Ashima Arts) — GLSL, embedded as a function string used by
@@ -96,7 +110,8 @@ function GoldTerrain({ mouse, count }) {
     geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     // per-vertex random seed used for size/alpha jitter
     const seeds = new Float32Array(gridW * gridH);
-    for (let i = 0; i < seeds.length; i++) seeds[i] = Math.random();
+    const rand = mulberry32(gridW * 1000 + gridH);
+    for (let i = 0; i < seeds.length; i++) seeds[i] = rand();
     geo.setAttribute('aSeed', new THREE.BufferAttribute(seeds, 1));
     return geo;
   }, [positions, gridW, gridH]);
@@ -216,12 +231,13 @@ function GoldDust({ count }) {
   const { positions, seeds } = useMemo(() => {
     const positions = new Float32Array(count * 3);
     const seeds = new Float32Array(count * 2); // [riseSpeed, sway phase]
+    const rand = mulberry32(count + 7);
     for (let i = 0; i < count; i++) {
-      positions[i * 3 + 0] = (Math.random() - 0.5) * 30;
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 14 - 1;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 18;
-      seeds[i * 2 + 0] = 0.15 + Math.random() * 0.35;
-      seeds[i * 2 + 1] = Math.random() * Math.PI * 2;
+      positions[i * 3 + 0] = (rand() - 0.5) * 30;
+      positions[i * 3 + 1] = (rand() - 0.5) * 14 - 1;
+      positions[i * 3 + 2] = (rand() - 0.5) * 18;
+      seeds[i * 2 + 0] = 0.15 + rand() * 0.35;
+      seeds[i * 2 + 1] = rand() * Math.PI * 2;
     }
     return { positions, seeds };
   }, [count]);
@@ -343,19 +359,22 @@ function Scene({ particleCount, dustCount }) {
 /* ──────────────────────────────────────────────────────────────────────────
    Responsive particle budget — fewer particles on small / low-power screens.
    ────────────────────────────────────────────────────────────────────────── */
+function calcCounts() {
+  if (typeof window === 'undefined') return { particleCount: 26000, dustCount: 140 };
+  const w = window.innerWidth;
+  const isCoarse = window.matchMedia?.('(pointer: coarse)')?.matches;
+  if (w < 600) return { particleCount: isCoarse ? 6000 : 9000, dustCount: 50 };
+  if (w < 1000) return { particleCount: 14000, dustCount: 90 };
+  return { particleCount: 26000, dustCount: 140 };
+}
+
 function useResponsiveCounts() {
-  const [counts, setCounts] = useState({ particleCount: 26000, dustCount: 140 });
+  // Lazy initializer computes the correct value up front instead of
+  // rendering a default then immediately setState-ing inside an effect.
+  const [counts, setCounts] = useState(calcCounts);
 
   useEffect(() => {
-    function calc() {
-      const w = window.innerWidth;
-      const isCoarse = window.matchMedia?.('(pointer: coarse)')?.matches;
-      if (w < 600) return { particleCount: isCoarse ? 6000 : 9000, dustCount: 50 };
-      if (w < 1000) return { particleCount: 14000, dustCount: 90 };
-      return { particleCount: 26000, dustCount: 140 };
-    }
-    setCounts(calc());
-    const onResize = () => setCounts(calc());
+    const onResize = () => setCounts(calcCounts());
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
   }, []);
@@ -373,11 +392,9 @@ function useResponsiveCounts() {
    ────────────────────────────────────────────────────────────────────────── */
 export default function GoldParticleTerrain({ className = '' }) {
   const { particleCount, dustCount } = useResponsiveCounts();
-  const [dpr, setDpr] = useState(1);
-
-  useEffect(() => {
-    setDpr(Math.min(window.devicePixelRatio || 1, 2));
-  }, []);
+  const [dpr] = useState(() =>
+    typeof window === 'undefined' ? 1 : Math.min(window.devicePixelRatio || 1, 2)
+  );
 
   return (
     <div className={`gold-terrain-bg ${className}`}>

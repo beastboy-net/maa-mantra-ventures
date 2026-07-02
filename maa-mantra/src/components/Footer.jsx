@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import './Footer.css';
+import mmvLogo from '../assets/mmv_logo.png';
 
 export default function Footer() {
   return (
@@ -7,20 +8,14 @@ export default function Footer() {
       <div className="container footer-top">
         <div className="footer-brand">
           <div className="footer-logo">
-            <svg width="34" height="34" viewBox="0 0 40 40" fill="none">
-              <path d="M4 34V10L20 22L36 10V34" stroke="#d6a23c" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            <div className="nav-logo-text">
-              <span className="nav-logo-main">maa<br />mantra</span>
-              <span className="nav-logo-sub">Ventures</span>
-            </div>
+            <img src={mmvLogo} alt="Maa Mantra Ventures" style={{ height: '70px', width: 'auto', objectFit: 'contain' }} />
           </div>
           <p>Creating Experiences — Building Brands.<br />Mangalore's leading event management & brand promotions company.</p>
           <div className="footer-social">
             <a href="https://instagram.com/maamantraventures" target="_blank" rel="noreferrer" aria-label="Instagram"><Icon name="instagram" /></a>
-            <a href="#" aria-label="Facebook"><Icon name="facebook" /></a>
+            <a href="https://www.facebook.com/share/14hi9WYtyP1/?mibextid=wwXIfr" target="_blank" rel="noreferrer" aria-label="Facebook"><Icon name="facebook" /></a>
             <a href="#" aria-label="LinkedIn"><Icon name="linkedin" /></a>
-            <a href="#" aria-label="YouTube"><Icon name="youtube" /></a>
+            <a href="https://www.youtube.com/@MaaMantraventures" target="_blank" rel="noreferrer" aria-label="YouTube"><Icon name="youtube" /></a>
           </div>
         </div>
 
@@ -45,11 +40,10 @@ export default function Footer() {
 
         <div className="footer-col">
           <h4>Contact Info</h4>
-          <a href="tel:+918660737223" className="footer-contact-line"><Icon name="phone" /> 866 073 7223</a>
           <a href="tel:+918904011860" className="footer-contact-line"><Icon name="phone" /> 890 401 1860</a>
           <a href="mailto:maamantraventures@gmail.com" className="footer-contact-line"><Icon name="mail" /> maamantraventures@gmail.com</a>
           <span className="footer-contact-line"><Icon name="pin" /> Shop No#8 Yenepoya Mall, Mallikatte, Kadri Road, Mangaluru 575003</span>
-          <a href="https://wa.me/918660737223" target="_blank" rel="noreferrer" className="btn btn-primary footer-whatsapp">
+          <a href="https://wa.me/918904011860" target="_blank" rel="noreferrer" className="btn btn-primary footer-whatsapp">
             Chat on WhatsApp <Icon name="whatsapp" />
           </a>
         </div>

@@ -55,6 +55,7 @@
 .hero-visual {
   grid-row: 1 / span 4;
   grid-column: 2;
+  overflow-anchor: none;
 }
 
 /* STATS BAR */
@@ -285,6 +286,15 @@
   min-width: 200px;
 }
 
+@keyframes portfolioIn {
+  from { opacity: 0; transform: scale(0.92) translateY(18px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.portfolio-item--animate {
+  animation: portfolioIn 0.6s var(--ease) both;
+}
+
 .portfolio-thumb {
   position: relative;
   aspect-ratio: 3 / 3.4;
@@ -295,6 +305,21 @@
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.5s var(--ease), border-color 0.4s var(--ease);
+}
+
+.portfolio-thumb img,
+.portfolio-thumb video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease);
+}
+
+.portfolio-item:hover .portfolio-thumb img,
+.portfolio-item:hover .portfolio-thumb video {
+  transform: scale(1.08);
 }
 
 .portfolio-thumb::after {
@@ -436,27 +461,87 @@
 .testimonial-person strong { display: block; font-size: 14px; }
 .testimonial-person span { font-size: 12.5px; color: var(--text-faint); }
 
-.logo-strip {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 30px;
+.clients-block {
   padding-top: 40px;
   border-top: 1px solid var(--border);
 }
 
-.logo-strip span {
-  font-family: var(--font-display);
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--text-faint);
-  letter-spacing: 0.02em;
-  opacity: 0.6;
-  transition: opacity 0.4s var(--ease), color 0.4s var(--ease);
+.clients-eyebrow {
+  display: block;
+  text-align: center;
+  margin-bottom: 30px;
+}
+.clients-eyebrow::before { margin: 0 auto 10px; }
+
+.logo-strip {
+  display: block;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
 }
 
-.logo-strip span:hover { opacity: 1; color: var(--gold); }
+.logo-track {
+  display: flex;
+  align-items: flex-start;
+  gap: 46px;
+  width: max-content;
+  animation: logoScroll 32s linear infinite;
+}
+
+.logo-strip:hover .logo-track {
+  animation-play-state: paused;
+}
+
+@keyframes logoScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.client-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 120px;
+  flex-shrink: 0;
+}
+
+.client-logo-circle {
+  width: 108px;
+  height: 108px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 6px 18px -8px rgba(0, 0, 0, 0.5);
+  transition: border-color 0.4s var(--ease), transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+
+.client-logo-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.client-logo:hover .client-logo-circle {
+  border-color: var(--gold);
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px -10px rgba(214, 162, 60, 0.35);
+}
+
+.client-logo-name {
+  font-size: 12px;
+  color: var(--text-faint);
+  text-align: center;
+  letter-spacing: 0.01em;
+  line-height: 1.3;
+  transition: color 0.4s var(--ease);
+}
+
+.client-logo:hover .client-logo-name { color: var(--gold); }
 
 /* CTA BAND */
 .cta-band {

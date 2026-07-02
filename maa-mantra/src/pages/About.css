@@ -12,6 +12,14 @@
     radial-gradient(circle at 50% 80%, rgba(214, 162, 60, 0.25), transparent 55%),
     linear-gradient(160deg, #1c1f1a 0%, #0f1210 55%, #06070a 100%);
   border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.about-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .about-text {

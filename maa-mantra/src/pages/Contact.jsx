@@ -1,9 +1,14 @@
 import { useState } from 'react';
 import PageHeader from '../components/PageHeader';
 import Reveal from '../components/Reveal';
+import useSEO from '../hooks/useSEO';
 import './Contact.css';
 
 export default function Contact() {
+  useSEO(
+    'Contact Us | Maa Mantra Ventures',
+    'Get in touch with Maa Mantra Ventures for event management, ad films and social media marketing services in Mangalore.'
+  );
   const [sent, setSent] = useState(false);
 
   const handleSubmit = (e) => {
@@ -24,13 +29,14 @@ export default function Contact() {
         <div className="container contact-grid">
           <Reveal>
             <div className="contact-info">
-              <ContactCard icon="phone" label="Call Us" value="866 073 7223 | 890 401 1860" href="tel:+918660737223" />
+              <ContactCard icon="phone" label="Call Us" value="890 401 1860" href="tel:+918904011860" />
               <ContactCard icon="mail" label="Email Us" value="maamantraventures@gmail.com" href="mailto:maamantraventures@gmail.com" />
               <ContactCard icon="pin" label="Visit Us" value="Shop No#8 Yenepoya Mall, Mallikatte, Kadri Road, Mangaluru, Karnataka 575003" />
               <ContactCard icon="instagram" label="Instagram" value="@maamantraventures" href="https://instagram.com/maamantraventures" />
               <div className="contact-social-row">
                 <a href="https://instagram.com/maamantraventures" target="_blank" rel="noreferrer" aria-label="Instagram" className="contact-social"><Icon name="instagram" /></a>
-                <a href="#" aria-label="Facebook" className="contact-social"><Icon name="facebook" /></a>
+                <a href="https://www.facebook.com/share/14hi9WYtyP1/?mibextid=wwXIfr" target="_blank" rel="noreferrer" aria-label="Facebook" className="contact-social"><Icon name="facebook" /></a>
+                <a href="https://www.youtube.com/@MaaMantraventures" target="_blank" rel="noreferrer" aria-label="YouTube" className="contact-social"><Icon name="youtube" /></a>
                 <a href="#" aria-label="LinkedIn" className="contact-social"><Icon name="linkedin" /></a>
               </div>
             </div>
@@ -103,6 +109,7 @@ function Icon({ name }) {
     pin: <path d="M12 21s7-6.2 7-12a7 7 0 10-14 0c0 5.8 7 12 7 12z" stroke="currentColor" strokeWidth="1.4" fill="none" />,
     instagram: <><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="1.6" fill="none" /><circle cx="12" cy="12" r="3.6" stroke="currentColor" strokeWidth="1.6" fill="none" /><circle cx="17" cy="7" r="1.1" fill="currentColor" /></>,
     facebook: <path d="M14 9h2V6h-2c-2 0-3 1.2-3 3v2H9v3h2v6h3v-6h2.2l.4-3H14V9z" fill="currentColor" />,
+    youtube: <><rect x="2.5" y="6" width="19" height="12" rx="4" stroke="currentColor" strokeWidth="1.6" fill="none" /><path d="M10 9.5l5 2.5-5 2.5v-5z" fill="currentColor" /></>,
     linkedin: <><rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" strokeWidth="1.6" fill="none" /><circle cx="8" cy="8.5" r="1.2" fill="currentColor" /><path d="M8 11v6M12 17v-4c0-1.4 1-2.2 2-2.2s2 .8 2 2.2v4" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" /></>,
   };
   return <svg width="19" height="19" viewBox="0 0 24 24" fill="none">{paths[name]}</svg>;

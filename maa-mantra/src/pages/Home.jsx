@@ -3,22 +3,40 @@ import { useState } from 'react';
 import Reveal from '../components/Reveal';
 import MMVHeroCanvas from '../components/MMVHeroCanvas';
 import HeroWavesBg from '../components/HeroWavesBg';
+import useSEO from '../hooks/useSEO';
 import './Home.css';
 
 const services = [
   { icon: 'calendar', title: 'Event Management', desc: 'Corporate Events, Weddings, Birthday Parties, Cultural Programs & Private Events.', path: '/services/event-management' },
-  { icon: 'stage', title: 'Stage & Show Management', desc: 'Live Shows, Celebrity Events, Award Functions, Launch Events.', path: '/services/event-management' },
   { icon: 'camera', title: 'Photography & Videography', desc: 'Event Coverage, Commercial Shoots, Reels & Promotional Videos.', path: '/services/ad-films' },
-  { icon: 'megaphone', title: 'Advertising Solutions', desc: 'Digital Marketing, Banner Design, Hoardings, Print Ads & Promotional Materials.', path: '/services/social-media-marketing' },
   { icon: 'brand', title: 'Brand Promotions', desc: 'Product Launches, Promotional Campaigns, Offline & Online Marketing.', path: '/services/social-media-marketing' },
 ];
 
+import kudlaCover from '../assets/portfolio/kudla-kapi-habba/kudla-2.jpg';
+import tenginaCover from '../assets/portfolio/tengina-habba/t2.jpg';
+import tenginaCover2 from '../assets/portfolio/tengina-habba-2.jpg';
+import kiaCover from '../assets/portfolio/kia-launch/k1.jpg';
+import weddingCover from '../assets/portfolio/wedding-brijesh-rachitha/w2.jpg';
+import sangeetCover from '../assets/portfolio/sangeet-prajwal-sweekruthi/s1.jpg';
+import cateringCover from '../assets/portfolio/catering-bar/c1.jpg';
+import jewelryCover from '../assets/portfolio/product-jewelry/j3.jpg';
+import tvsLaunchCover from '../assets/portfolio/tvs-sai-radha-launch.jpg';
+import snowmanCover from '../assets/portfolio/snowman-icecreams.jpg';
+import skinnishCover from '../assets/portfolio/skinnish-launch.jpg';
+
 const portfolio = [
-  { title: 'Kudla Kapi Habba', tag: 'Cultural Event', video: false },
-  { title: 'Cashew Festival', tag: 'Community Event', video: false },
-  { title: 'TVS Sai Radha Launch', tag: 'Product Launch', video: true },
-  { title: 'Hero MotoCorp Activation', tag: 'Brand Activation', video: false },
-  { title: 'Corporate Award Night', tag: 'Corporate Event', video: true },
+  { title: 'Kudla Kapi Habba', tag: 'Cultural Event', video: false, image: kudlaCover, info: 'One of Mangalore\'s most celebrated cultural festivals, fully managed by our team.' },
+  { title: 'Tengina Habba 2025', tag: 'Cultural Event', video: false, image: tenginaCover2, info: 'A coconut-themed celebration with immersive decor and brand activations.' },
+  { title: 'TVS Sai Radha Launch', tag: 'Product Launch', video: false, image: tvsLaunchCover, info: 'Grand reveal event for TVS\'s latest scooter lineup at a premium mall venue.' },
+  { title: 'Snow Man Icecreams', tag: 'Product Shoot', video: false, image: snowmanCover, info: 'Styled product photography crafted to make every scoop look irresistible.' },
+  { title: 'Skinnish Grand Opening', tag: 'Product Launch', video: false, image: skinnishCover, info: 'Elegant floral-themed stage setup for a skincare brand\'s store launch.' },
+  { title: 'Tengina Habba', tag: 'Cultural Event', video: false, image: tenginaCover, info: 'Where coconut meets culture — a festival blending tradition and fun.' },
+  { title: 'Kia Connect & Care Launch', tag: 'Product Launch', video: false, image: kiaCover, info: 'High-energy automotive launch with live demos and press coverage.' },
+  { title: 'Brijesh & Rachitha Wedding', tag: 'Wedding', video: false, image: weddingCover, info: 'Intimate wedding styled with warm lighting and personal touches.' },
+  { title: 'Prajual & Sweekruthi Sangeet', tag: 'Wedding', video: false, image: sangeetCover, info: 'Vibrant sangeet night with custom staging and choreography support.' },
+  { title: 'Catering & Bar Setup', tag: 'Catering', video: false, image: cateringCover, info: 'Full-service catering and bar design for a premium private event.' },
+  { title: 'Bridal Jewelry Shoot', tag: 'Product Shoot', video: false, image: jewelryCover, info: 'Macro-detail jewelry photography for a bridal collection launch.' },
+  { title: 'Corporate Award Night', tag: 'Corporate Event', video: true, info: 'A polished awards gala with stage production and live streaming.' },
 ];
 
 const REVIEW_LINK = 'https://share.google/970PxJEuElhSyPL8K';
@@ -32,9 +50,47 @@ const testimonials = [
   { quote: 'Maa Mantra Ventures is a one-stop solution for all event, vendor, and marketing needs — from social media and performance marketing to influencer campaigns, they handle everything with quality delivery.', name: 'Nidhi', role: 'Google Review · Local Guide', stars: 5 },
 ];
 
-const logos = ['KIA', 'TVS', 'Hero MotoCorp', "McDonald's", 'Sun Network', 'BSTRA'];
+import logoWestCoastMotors from '../assets/clients/00_west-coast-motors.png';
+import logoWestCoastJewels from '../assets/clients/01_west-coast-jewels.png';
+import logoSunUserNetwork from '../assets/clients/02_sun-user-network.png';
+import logoSaiRadhaTvs from '../assets/clients/03_sai-radha-tvs.png';
+import logoCaratlane from '../assets/clients/04_caratlane.png';
+import logoYenepoya from '../assets/clients/05_yenepoya.png';
+import logoFizaNexus from '../assets/clients/06_fiza-nexus.png';
+import logoKtmMangalore from '../assets/clients/07_ktm-mangalore.png';
+import logoJayalakshmi from '../assets/clients/08_jayalakshmi.png';
+import logoSareePalace from '../assets/clients/09_saree-palace.png';
+import logoLaerdal from '../assets/clients/10_laerdal.png';
+import logoChemmanurJewellers from '../assets/clients/11_chemmanur-jewellers.png';
+import logoGlAcharyaJewellers from '../assets/clients/12_g-l-acharya-jewellers.png';
+import logoRohanCorporation from '../assets/clients/13_rohan-corporation.png';
+import logoInLandGroup from '../assets/clients/14_in-land-group.png';
+import logoCatca from '../assets/clients/15_catca.png';
+
+const logos = [
+  { name: 'West Coast Motors', img: logoWestCoastMotors },
+  { name: 'West Coast Jewels', img: logoWestCoastJewels },
+  { name: 'SUN User Network', img: logoSunUserNetwork },
+  { name: 'Sai Radha TVS', img: logoSaiRadhaTvs },
+  { name: 'CaratLane', img: logoCaratlane },
+  { name: 'Yenepoya', img: logoYenepoya },
+  { name: 'Fiza Nexus', img: logoFizaNexus },
+  { name: 'KTM Mangalore', img: logoKtmMangalore },
+  { name: 'Jayalakshmi', img: logoJayalakshmi },
+  { name: 'Saree Palace', img: logoSareePalace },
+  { name: 'Laerdal', img: logoLaerdal },
+  { name: 'Chemmanur Jewellers', img: logoChemmanurJewellers },
+  { name: 'G L Acharya Jewellers', img: logoGlAcharyaJewellers },
+  { name: 'Rohan Corporation', img: logoRohanCorporation },
+  { name: 'In-Land Group', img: logoInLandGroup },
+  { name: 'CATCA', img: logoCatca },
+];
 
 export default function Home() {
+  useSEO(
+    'Maa Mantra Ventures | Events, Ad Films & Social Media Marketing',
+    'Mangalore-based event management, ad films and social media marketing agency. Corporate events, weddings, brand promotions and creative campaigns.'
+  );
   const [slide, setSlide] = useState(0);
   const visibleCount = 4;
   const maxSlide = Math.max(0, portfolio.length - visibleCount);
@@ -151,10 +207,12 @@ export default function Home() {
             </button>
             <div className="portfolio-track-wrap">
               <div className="portfolio-track" style={{ transform: `translateX(-${slide * (100 / visibleCount)}%)` }}>
-                {portfolio.map((p) => (
-                  <Reveal key={p.title} className="reveal-scale" threshold={0.1}>
-                  <div className="portfolio-item">
+                {portfolio.map((p, i) => (
+                  <div key={p.title} className="portfolio-item portfolio-item--animate" style={{ animationDelay: `${i * 0.07}s` }}>
                     <div className="portfolio-thumb">
+                      {p.image && (
+                        <img src={p.image} alt={p.title} className="portfolio-thumb-img" />
+                      )}
                       {p.video && (
                         <span className="portfolio-play">
                           <svg viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7z" fill="#16130a" /></svg>
@@ -164,7 +222,6 @@ export default function Home() {
                     <h4>{p.title}</h4>
                     <span>{p.tag}</span>
                   </div>
-                  </Reveal>
                 ))}
               </div>
             </div>
@@ -205,8 +262,20 @@ export default function Home() {
             ))}
           </div>
           <Reveal delay={2}>
-            <div className="logo-strip">
-              {logos.map(l => <span key={l}>{l}</span>)}
+            <div className="clients-block">
+              <span className="eyebrow clients-eyebrow">Our Clients</span>
+              <div className="logo-strip">
+                <div className="logo-track">
+                  {[...logos, ...logos].map((l, i) => (
+                    <div className="client-logo" key={l.name + i}>
+                      <span className="client-logo-circle">
+                        <img src={l.img} alt={l.name} loading="lazy" />
+                      </span>
+                      <span className="client-logo-name">{l.name}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </Reveal>
         </div>
@@ -225,7 +294,7 @@ export default function Home() {
                 Start Your Project
                 <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
               </Link>
-              <a href="tel:+918660737223" className="btn btn-outline">
+              <a href="tel:+918904011860" className="btn btn-outline">
                 Call Us Now
                 <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
               </a>

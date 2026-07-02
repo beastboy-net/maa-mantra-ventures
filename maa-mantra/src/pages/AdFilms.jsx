@@ -1,5 +1,14 @@
 import ServiceDetail from './ServiceDetail';
 
+import necklace01 from '../assets/portfolio/jewelry-necklace-01.jpg';
+import dessertShoot from '../assets/portfolio/product-dessert-shoot.jpg';
+import necklace02 from '../assets/portfolio/jewelry-necklace-02.jpg';
+import necklace03 from '../assets/portfolio/jewelry-necklace-03.jpg';
+import jewelryCover from '../assets/portfolio/product-jewelry/j1.jpg';
+
+/* note: product-ad-highlight.mp4 not imported here — gallery cards render
+   images only; the video file is used on the Portfolio page instead. */
+
 const heroIcon = (
   <svg viewBox="0 0 24 24" fill="none">
     <path d="M3 7h18v12H3V7z" stroke="currentColor" strokeWidth="1.2" />
@@ -53,7 +62,14 @@ const data = {
     { title: 'Post-Production', desc: 'Edit, grade, sound mix and motion graphics polish.' },
     { title: 'Delivery & Launch Support', desc: 'Platform-ready exports and a rollout plan.' },
   ],
-  gallery: ['Luxury Watch Launch', 'FMCG Festive Campaign', 'Startup Brand Story', 'D2C Product Film', 'Real Estate Walkthrough', 'Founder Interview Series'],
+  gallery: [
+    { title: 'Bridal Jewelry Product Shoot', image: necklace01 },
+    { title: 'Dessert Product Shoot', image: dessertShoot },
+    { title: 'Diamond Necklace Campaign', image: necklace02 },
+    { title: 'Statement Jewelry Shoot', image: necklace03 },
+    { title: 'Jewelry Collection Shoot', image: jewelryCover },
+    { title: 'Product Macro Detail Shoot', image: necklace01 },
+  ],
   faqs: [
     { q: 'How long does an ad film take to produce?', a: 'Most projects take 3-5 weeks from script approval to final delivery, depending on shoot complexity.' },
     { q: 'Do you write the script too?', a: 'Yes — our team handles concept, scripting and storyboarding as part of the package.' },

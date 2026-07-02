@@ -1,5 +1,6 @@
 import PageHeader from '../components/PageHeader';
 import Reveal from '../components/Reveal';
+import useSEO from '../hooks/useSEO';
 import './Home.css';
 
 const REVIEW_LINK = 'https://share.google/970PxJEuElhSyPL8K';
@@ -17,6 +18,10 @@ const testimonials = [
 ];
 
 export default function Testimonials() {
+  useSEO(
+    'Client Testimonials | Maa Mantra Ventures',
+    'Read real Google reviews from clients of Maa Mantra Ventures — 4.9 star rated event management and marketing agency in Mangalore.'
+  );
   return (
     <div className="page-enter">
       <PageHeader

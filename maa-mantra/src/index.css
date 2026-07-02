@@ -149,8 +149,9 @@ h1, h2, h3, h4 {
 /* scroll reveal */
 .reveal {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+  transform: translateY(24px);
+  transition: opacity 0.75s var(--ease), transform 0.75s var(--ease);
+  will-change: opacity, transform;
 }
 
 .reveal.in-view {
@@ -158,10 +159,10 @@ h1, h2, h3, h4 {
   transform: translateY(0);
 }
 
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
-.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-1 { transition-delay: 0.08s; }
+.reveal-delay-2 { transition-delay: 0.16s; }
+.reveal-delay-3 { transition-delay: 0.24s; }
+.reveal-delay-4 { transition-delay: 0.32s; }
 
 /* reveal variants — pass as className on <Reveal> */
 .reveal-fade {
@@ -169,41 +170,47 @@ h1, h2, h3, h4 {
 }
 
 .reveal-scale {
-  transform: scale(0.92);
-  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+  transform: scale(0.93) translateY(16px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+  will-change: opacity, transform;
 }
 .reveal-scale.in-view {
-  transform: scale(1);
+  transform: scale(1) translateY(0);
 }
 
 .reveal-blur {
-  transform: none;
-  filter: blur(10px);
-  transition: opacity 0.8s var(--ease), filter 0.9s var(--ease);
+  transform: translateY(12px);
+  filter: blur(8px);
+  transition: opacity 0.75s var(--ease), filter 0.8s var(--ease), transform 0.75s var(--ease);
+  will-change: opacity, filter, transform;
 }
 .reveal-blur.in-view {
   filter: blur(0);
+  transform: translateY(0);
 }
 
 .reveal-rotate {
-  transform: rotate(-4deg) translateY(24px);
-  transition: opacity 0.85s var(--ease), transform 0.85s var(--ease);
+  transform: rotate(-3deg) translateY(20px);
+  transition: opacity 0.75s var(--ease), transform 0.75s var(--ease);
+  will-change: opacity, transform;
 }
 .reveal-rotate.in-view {
   transform: rotate(0deg) translateY(0);
 }
 
 .reveal-left {
-  transform: translateX(-40px);
-  transition: opacity 0.85s var(--ease), transform 0.85s var(--ease);
+  transform: translateX(-36px);
+  transition: opacity 0.75s var(--ease), transform 0.75s var(--ease);
+  will-change: opacity, transform;
 }
 .reveal-left.in-view {
   transform: translateX(0);
 }
 
 .reveal-right {
-  transform: translateX(40px);
-  transition: opacity 0.85s var(--ease), transform 0.85s var(--ease);
+  transform: translateX(36px);
+  transition: opacity 0.75s var(--ease), transform 0.75s var(--ease);
+  will-change: opacity, transform;
 }
 .reveal-right.in-view {
   transform: translateX(0);

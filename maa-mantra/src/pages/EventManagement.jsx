@@ -1,5 +1,12 @@
 import ServiceDetail from './ServiceDetail';
 
+import weddingCover from '../assets/portfolio/gallery/wedding-mandap.jpg';
+import receptionCover from '../assets/portfolio/gallery/reception-tables.jpg';
+import activationCover from '../assets/portfolio/gallery/nexus-activation.jpg';
+import birthdayCover from '../assets/portfolio/gallery/birthday-backdrop.jpg';
+import engagementCover from '../assets/portfolio/gallery/engagement-sign.jpg';
+import sportsCover from '../assets/portfolio/gallery/cpl-trophy.jpg';
+
 const heroIcon = (
   <svg viewBox="0 0 24 24" fill="none">
     <rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" strokeWidth="1.2" />
@@ -53,7 +60,14 @@ const data = {
     { title: 'Rehearsal & Final Checks', desc: 'Run-throughs and contingency plans before the big day.' },
     { title: 'Live Execution', desc: 'On-ground team manages every moment so you can enjoy the event.' },
   ],
-  gallery: ['Royal Destination Wedding', 'Tech Conference 2025', 'Product Launch Gala', 'Corporate Annual Day', 'Brand Pop-Up Activation', 'Milestone Birthday Celebration'],
+  gallery: [
+    { title: 'Astra Group CPL Trophy Reveal', image: weddingCover },
+    { title: 'Independence Day Mall Activation', image: receptionCover },
+    { title: 'Tengina Habba Kids Stage', image: activationCover },
+    { title: 'Wedding Stage Decoration', image: birthdayCover },
+    { title: 'Event Table Decoration', image: engagementCover },
+    { title: 'Kudla Kapi Habba Coffee Corner', image: sportsCover },
+  ],
   faqs: [
     { q: 'What kind of events do you manage?', a: 'Weddings, corporate conferences, product launches, brand activations and private celebrations.' },
     { q: 'How far in advance should we book?', a: 'We recommend 2-3 months for most events, and 6+ months for large weddings or conferences.' },
