@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
 import Reveal from '../components/Reveal';
 import MMVHeroCanvas from '../components/MMVHeroCanvas';
-import HeroWavesBg from '../components/HeroWavesBg';
+import FireBackground from '../components/FireBackground';
 import useSEO from '../hooks/useSEO';
 import './Home.css';
 
@@ -161,7 +161,7 @@ export default function Home() {
       {/* HERO */}
       <section className="hero">
         <div className="hero-glow" />
-        <HeroWavesBg />
+        <FireBackground />
         <div className="container hero-inner">
           <Reveal><span className="eyebrow">Maa Mantra Ventures — Mangalore</span></Reveal>
           <Reveal delay={1}>
