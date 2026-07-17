@@ -15,7 +15,7 @@ export default function FireBackground() {
     let w, h, dpr, raf;
     let particles = [];
 
-    const COUNT = 320;
+    const COUNT = 400;
 
     function resize() {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -27,9 +27,10 @@ export default function FireBackground() {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
 
-    function spawn(initial) {
+    function spawn(initial, staggeredLife) {
       const originX = w * 0.06 + Math.random() * w * 0.14;
       const originY = h * 1.05 + Math.random() * 40;
+      const maxLife = Math.random() * 420 + 340;
       return {
         x: initial ? originX + (Math.random() - 0.5) * w * 0.5 : originX,
         y: initial ? Math.random() * h * 1.3 - h * 0.15 : originY,
@@ -41,15 +42,19 @@ export default function FireBackground() {
         wobbleAmp: Math.random() * 0.7 + 0.25,
         wobbleSpeed: Math.random() * 0.03 + 0.015,
         phase: Math.random() * Math.PI * 2,
-        life: 0,
-        maxLife: Math.random() * 620 + 480,
+        life: staggeredLife != null ? staggeredLife : 0,
+        maxLife,
         hue: Math.random() > 0.5 ? "255,70,15" : "255,100,28",
       };
     }
 
     function init() {
       resize();
-      particles = Array.from({ length: COUNT }, () => spawn(true));
+      particles = Array.from({ length: COUNT }, () => {
+        const p = spawn(true);
+        p.life = Math.random() * p.maxLife; // stagger lifecycle phase — no mount-sync, no periodic gaps
+        return p;
+      });
       particles.forEach((p) => (p.r0 = p.r));
     }
 
@@ -81,7 +86,7 @@ export default function FireBackground() {
           p.x += p.vx + Math.sin(p.phase) * p.wobbleAmp * 0.05;
 
           const lifeRatio = p.life / p.maxLife;
-          const fade = lifeRatio < 0.08 ? lifeRatio / 0.08 : 1 - Math.pow(Math.max(0, (lifeRatio - 0.08) / 0.92), 1.4);
+          const fade = lifeRatio < 0.08 ? lifeRatio / 0.08 : 1 - Math.pow(Math.max(0, (lifeRatio - 0.08) / 0.92), 1.0);
           const alpha = Math.max(0, Math.min(1, fade)) * 1.0;
           const size = Math.max(0.3, p.r0 * (1 - lifeRatio * 0.4));
 
