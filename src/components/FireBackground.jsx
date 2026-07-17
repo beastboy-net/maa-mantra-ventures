@@ -15,7 +15,7 @@ export default function FireBackground() {
     let w, h, dpr, raf;
     let particles = [];
 
-    const COUNT = 170;
+    const COUNT = 260;
 
     function resize() {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -32,17 +32,17 @@ export default function FireBackground() {
       return {
         x: initial ? originX + (Math.random() - 0.5) * w * 0.5 : originX,
         y: initial ? Math.random() * h * 1.3 - h * 0.15 : originY,
-        r: Math.random() * 1.6 + 0.4,
+        r: Math.random() * 2.1 + 0.6,
         r0: 0,
-        vy: Math.random() * 1.5 + 1.1,
-        vyDecay: Math.random() * 0.006 + 0.003,
+        vy: Math.random() * 1.3 + 0.9,
+        vyDecay: Math.random() * 0.005 + 0.0022,
         vx: Math.random() * 0.55 + 0.18,
         wobbleAmp: Math.random() * 0.7 + 0.25,
         wobbleSpeed: Math.random() * 0.03 + 0.015,
         phase: Math.random() * Math.PI * 2,
         life: 0,
-        maxLife: Math.random() * 420 + 320,
-        hue: Math.random() > 0.5 ? "255,55,12" : "255,85,22",
+        maxLife: Math.random() * 620 + 480,
+        hue: Math.random() > 0.5 ? "255,70,15" : "255,100,28",
       };
     }
 
@@ -80,7 +80,7 @@ export default function FireBackground() {
 
         const lifeRatio = p.life / p.maxLife;
         const fade = lifeRatio < 0.08 ? lifeRatio / 0.08 : 1 - Math.pow(Math.max(0, (lifeRatio - 0.08) / 0.92), 1.4);
-        const alpha = Math.max(0, Math.min(1, fade)) * 0.9;
+        const alpha = Math.max(0, Math.min(1, fade)) * 1.0;
         const size = p.r0 * (1 - lifeRatio * 0.4);
 
         const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, size * 6);
