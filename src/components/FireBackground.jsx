@@ -15,7 +15,23 @@ export default function FireBackground() {
     let w, h, dpr, raf;
     let particles = [];
 
-    const COUNT = 400;
+    const COUNT = 600;
+
+    // pre-render glow sprites once — avoids creating 1200+ gradient objects every frame
+    function makeSprite(hue) {
+      const s = document.createElement("canvas");
+      s.width = 64; s.height = 64;
+      const sctx = s.getContext("2d");
+      const g = sctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+      g.addColorStop(0, `rgba(${hue},0.9)`);
+      g.addColorStop(0.15, `rgba(255,190,140,0.8)`);
+      g.addColorStop(0.35, `rgba(${hue},0.5)`);
+      g.addColorStop(1, `rgba(${hue},0)`);
+      sctx.fillStyle = g;
+      sctx.fillRect(0, 0, 64, 64);
+      return s;
+    }
+    const sprites = [makeSprite("255,70,15"), makeSprite("255,100,28")];
 
     function resize() {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -34,7 +50,7 @@ export default function FireBackground() {
       return {
         x: initial ? originX + (Math.random() - 0.5) * w * 0.5 : originX,
         y: initial ? Math.random() * h * 1.3 - h * 0.15 : originY,
-        r: Math.random() * 2.1 + 0.6,
+        r: Math.random() * 2.8 + 0.9,
         r0: 0,
         vy: Math.random() * 1.3 + 0.9,
         vyDecay: Math.random() * 0.005 + 0.0022,
@@ -44,7 +60,7 @@ export default function FireBackground() {
         phase: Math.random() * Math.PI * 2,
         life: staggeredLife != null ? staggeredLife : 0,
         maxLife,
-        hue: Math.random() > 0.5 ? "255,70,15" : "255,100,28",
+        spriteIdx: Math.random() > 0.5 ? 0 : 1,
       };
     }
 
@@ -89,19 +105,11 @@ export default function FireBackground() {
           const fade = lifeRatio < 0.08 ? lifeRatio / 0.08 : 1 - Math.pow(Math.max(0, (lifeRatio - 0.08) / 0.92), 1.0);
           const alpha = Math.max(0, Math.min(1, fade)) * 1.0;
           const size = Math.max(0.3, p.r0 * (1 - lifeRatio * 0.4));
+          const spriteSize = size * 9;
 
-          const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, size * 6);
-          g.addColorStop(0, `rgba(${p.hue},${alpha * 0.5})`);
-          g.addColorStop(1, `rgba(${p.hue},0)`);
-          ctx.fillStyle = g;
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, size * 6, 0, Math.PI * 2);
-          ctx.fill();
-
-          ctx.fillStyle = `rgba(255,190,140,${alpha})`;
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
-          ctx.fill();
+          ctx.globalAlpha = alpha;
+          ctx.drawImage(sprites[p.spriteIdx], p.x - spriteSize / 2, p.y - spriteSize / 2, spriteSize, spriteSize);
+          ctx.globalAlpha = 1;
 
           if (p.life >= p.maxLife || p.y < -30 || p.x > w + 60) {
             const fresh = spawn(false);
@@ -109,6 +117,7 @@ export default function FireBackground() {
             p.r0 = p.r;
           }
         }
+        heartbeat = Date.now();
       } catch (err) {
         // a bad frame (e.g. transient 0-size container) must never kill the loop
       }
@@ -116,11 +125,27 @@ export default function FireBackground() {
       raf = requestAnimationFrame(tick);
     }
 
+    let heartbeat = Date.now();
+    let watchdog = setInterval(() => {
+      // if no frame has run in 2.5s, the rAF chain died silently — force-restart it
+      if (Date.now() - heartbeat > 2500) {
+        cancelAnimationFrame(raf);
+        heartbeat = Date.now();
+        tick();
+      }
+    }, 2000);
+
     init();
     tick();
     window.addEventListener("resize", init);
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") {
+        heartbeat = Date.now();
+      }
+    });
     return () => {
       cancelAnimationFrame(raf);
+      clearInterval(watchdog);
       window.removeEventListener("resize", init);
     };
   }, []);
